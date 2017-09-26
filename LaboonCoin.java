@@ -81,15 +81,26 @@ public class LaboonCoin {
     
 	// Returns an integer value for 'n' based on ascii values of input string
     public int hash(String data) {
-		int n = 10000000, ascii = 0;
-		if(data != null || data != ""){
-			char[] sequence = data.toCharArray();
-			for(char c : sequence){
-				ascii = (int) c;
-				n = (n*ascii) + ascii;
+		int numCharacters = 0;
+		int n = 10000000;
+		int ascii = 0;
+		
+		if(data == null || data.equals("")){
+			return n;
+		}else{
+			numCharacters = data.length();
+			char[] dataCharacters = data.toCharArray();
+			
+			int i = 0;
+			while(i < numCharacters){
+				ascii = (int) dataCharacters[i];
+				n = (n * ascii) + ascii;
+				i += 1;
 			}
+			
+			return n;
 		}
-		return n;
+		
     }
 
     /**
@@ -109,14 +120,17 @@ public class LaboonCoin {
     
 	//returns a boolean value of true for valid hashes and false for invalid hashes
    public boolean validHash(int difficulty, int hash) {
-		if(difficulty > 8){
-			System.out.println("ERROR: CANNOT HAVE MORE LEADING ZEROES THAN MAX SIZE OF HEX STRING!");
+		//can't handle all difficulties
+		if(difficulty > 8 || difficulty < 0){
+			System.out.println("ERROR: CANNOT COMPUTE WITH GIVEN DIFFICULTY LEVEL");
 			return false;
 		}
 		
-		String hexValue = Integer.toHexString(hash);
+		//Get the int hash into something we can work with
+		String hexValue = String.format("%08x", hash);
 		char[] hexCharacters = hexValue.toCharArray();
 		
+		//parse the hexString looking for leading zeroes
 		int i = 0;
 		while(i < difficulty){
 			if(hexCharacters[i] == '0'){
@@ -155,7 +169,7 @@ public class LaboonCoin {
 	    // System.out.print("Trying: " + toTry + ".. ");
 	    
 	    hashVal = hash(toTry);
-	    System.out.println("hash: " + String.format("%08x", hashVal));
+	    //System.out.println("hash: " + String.format("%08x", hashVal));
 	    if (validHash(difficulty, hashVal)) {
 		foundNonce = true;
 	    } else {
@@ -227,7 +241,7 @@ public class LaboonCoin {
 		difficulty = 3;
 	    }
 	} catch (ArrayIndexOutOfBoundsException oobex) {
-	    System.out.println("No argument detected, defaulting to difficulty = 3");
+	    //System.out.println("No argument detected, defaulting to difficulty = 3");
 	} catch (NumberFormatException nfex) {
 	    System.out.println("Could not parse argument, defaulting to difficulty = 3");
 	}
