@@ -109,8 +109,23 @@ public class LaboonCoin {
     
 	//returns a boolean value of true for valid hashes and false for invalid hashes
     public boolean validHash(int difficulty, int hash) {
+		if(difficulty > 8){
+			System.out.println("ERROR: CANNOT HAVE MORE LEADING ZEROES THAN MAX SIZE OF HEX STRING!");
+			return false;
+		}
 		
-	return false;
+		String hexValue = Integer.toHexString(hash);
+		char[] hexCharacters = hexValue.toCharArray();
+		
+		int i = 0;
+		while(i < difficulty){
+			if(hexCharacters[i] == '0'){
+				i += 1;
+			}else{
+				return false;
+			}
+		}
+		return true;
     }
 
     /**
