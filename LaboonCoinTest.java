@@ -58,6 +58,23 @@ public class LaboonCoinTest {
 	assertEquals("TESTBLOCK1|00000000|000010e9|000a3cd8\nTESTBLOCK2|000a3cd8|00002ca8|0008ff30\nTESTBLOCK3|0008ff30|00002171|0009f908\n", blockChain);
     }
 	    
-    // TODO - PUT YOUR SIX TESTS HERE
-    
+    /*
+	THIS IS THE BEGINNING OF OUR SIX TESTS
+	THESE TEST METHODS HASH() AND VALIDHASH()
+	*/
+	
+	//Testing the hash() function
+	//First test uses a known basic case, "boo" hashes to 
+    @Test
+    public void testGetHashNotEmpty() {
+	int hashCheck = _l.hash("boo");
+	assertEquals(1428150834, hashCheck);
+    }
+	
+	//Now, test that the empty string is handled and 10,000,000 is returned
+	@Test
+    public void testGetHashEmptyString() {
+	int hashCheck = _l.hash("");
+	assertEquals(10000000, hashCheck);
+    }
 }

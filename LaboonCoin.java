@@ -79,10 +79,17 @@ public class LaboonCoin {
      * @return int - hash value using LaboonHash algorithm
      */
     
+	// Returns an integer value for 'n' based on ascii values of input string
     public int hash(String data) {
-	// TODO - IMPLEMENT LABOONHASH
-	//System.out.println("Hello World");
-	return -1;
+		int n = 10000000, ascii = 0;
+		if(data != null || data != ""){
+			char[] sequence = data.toCharArray();
+			for(char c : sequence){
+				ascii = (int) c;
+				n = (n*ascii) + ascii;
+			}
+		}
+		return n;
     }
 
     /**
@@ -100,8 +107,9 @@ public class LaboonCoin {
      * @return boolean - true if hash is valid for a block, false otherwise
      */
     
+	//returns a boolean value of true for valid hashes and false for invalid hashes
     public boolean validHash(int difficulty, int hash) {
-	// TODO - CHECK FOR VALID HASHES
+		
 	return false;
     }
 
@@ -181,7 +189,6 @@ public class LaboonCoin {
 
 		blockchain.add(newBlock);
 	    }
-	    
 	}
     }
 
